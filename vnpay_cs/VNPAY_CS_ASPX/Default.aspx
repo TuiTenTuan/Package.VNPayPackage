@@ -13,6 +13,11 @@
 
             <h3 class="text-muted">VNPAY DEMO</h3>
         </div>
+
+        <div>
+            <asp:Label runat="server" ID="lblOutput" ForeColor="#FF3300"></asp:Label>
+        </div>
+
         <div class="table-responsive">
             <form id="form1" runat="server">
                 <h3>Thông tin thanh toán </h3>
@@ -209,12 +214,12 @@
 
                 </div>
                 <asp:Button ID="btnPay" runat="server" Text="Thanh toán (Redirect)" CssClass="btn btn-default" OnClick="btnPay_Click" />
-                
+
             </form>
             <asp:Label runat="server" ID="lblMessage" ForeColor="#FF3300"></asp:Label>
         </div>
     </div>
 
-     
+
 </body>
 </html>

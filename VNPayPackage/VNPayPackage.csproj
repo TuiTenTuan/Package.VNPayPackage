@@ -9,6 +9,22 @@
     <Title>Library for VNPay portal</Title>
     <Authors>Tui Tên Tuấn</Authors>
     <Description>Library for VNPay portal. Version 2.1.0</Description>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/TuiTenTuan/Package.SQLServerDataProvider</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>VNPay;vnpay</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+  </ItemGroup>
 
 </Project>

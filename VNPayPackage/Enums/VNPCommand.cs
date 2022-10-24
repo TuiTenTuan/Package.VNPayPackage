@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VNPayPackage
+namespace VNPayPackage.Enums
 {
-    public class Pay : IVNPay
+    public enum VNPCommand
     {
+        Pay
     }
 }

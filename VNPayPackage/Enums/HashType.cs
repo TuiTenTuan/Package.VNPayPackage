@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VNPayPackage
+namespace VNPayPackage.Enums
 {
-    public interface IVNPay
+    public enum HashType
     {
+        SHA256,
+        HmacSHA512
     }
 }

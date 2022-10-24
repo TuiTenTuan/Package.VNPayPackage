@@ -11,8 +11,7 @@ namespace VNPAY_CS_ASPX
           LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            
+
             if (!IsPostBack)
             {
                 txtOrderDesc.Text = "Nhap noi dung thanh toan";
@@ -68,9 +67,9 @@ namespace VNPAY_CS_ASPX
             vnpay.AddRequestData("vnp_OrderType", orderCategory.SelectedItem.Value); //default value: other
             vnpay.AddRequestData("vnp_ReturnUrl", vnp_Returnurl);
             vnpay.AddRequestData("vnp_TxnRef", order.OrderId.ToString()); // Mã tham chiếu của giao dịch tại hệ thống của merchant. Mã này là duy nhất dùng để phân biệt các đơn hàng gửi sang VNPAY. Không được trùng lặp trong ngày
-            
+
             //Add Params of 2.1.0 Version
-            vnpay.AddRequestData("vnp_ExpireDate",txtExpire.Text);
+            vnpay.AddRequestData("vnp_ExpireDate", txtExpire.Text);
             //Billing
             vnpay.AddRequestData("vnp_Bill_Mobile", txt_billing_mobile.Text.Trim());
             vnpay.AddRequestData("vnp_Bill_Email", txt_billing_email.Text.Trim());
@@ -98,7 +97,13 @@ namespace VNPAY_CS_ASPX
 
             string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
             log.InfoFormat("VNPAY URL: {0}", paymentUrl);
-            Response.Redirect(paymentUrl);
+            //Response.Redirect(paymentUrl);
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenWindow", "window.open('" + paymentUrl + "','_newtab');", true);
+
+            string value = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=10000000&=22+L%C3%A1ng+H%E1%BA%A1%2C+Ph%C6%B0%E1%BB%9Dng+L%C3%A1ng+H%E1%BA%A1%2C+Qu%E1%BA%ADn+%C4%90%E1%BB%91ng+%C4%90a%2C+TP+H%C3%A0+N%E1%BB%99i&vnp_Bill_City=H%C3%A0+N%E1%BB%99i&vnp_Bill_Country=VN&vnp_Bill_Email=vnpaytest%40vnpay.vn&vnp_Bill_FirstName=Nguyen&vnp_Bill_LastName=Van+A&vnp_Bill_Mobile=0123456789&vnp_Command=pay&vnp_CreateDate=20221024004920&vnp_CurrCode=VND&vnp_ExpireDate=20221024010358&vnp_Inv_Address=22+L%C3%A1ng+H%E1%BA%A1%2C+Ph%C6%B0%E1%BB%9Dng+L%C3%A1ng+H%E1%BA%A1%2C+Qu%E1%BA%ADn+%C4%90%E1%BB%91ng+%C4%90a%2C+TP+H%C3%A0+N%E1%BB%99i&vnp_Inv_Company=C%C3%B4ng+ty+C%E1%BB%95+ph%E1%BA%A7n+gi%E1%BA%A3i+ph%C3%A1p+Thanh+to%C3%A1n+Vi%E1%BB%87t+Nam&vnp_Inv_Customer=Nguyen+Van+A&vnp_Inv_Email=vnpaytest%40vnpay.vn&vnp_Inv_Phone=02437764668&vnp_Inv_Taxcode=0102182292&vnp_Inv_Type=O&vnp_IpAddr=%3A%3A1&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang%3A638021693603310261&vnp_OrderType=topup&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A16262%2Fvnpay_return.aspx&vnp_TmnCode=20OSMDB3&vnp_TxnRef=638021693603310261&vnp_Version=2.1.0";
+
+            lblMessage.Text = Utils.HmacSHA512(vnp_HashSecret, value) + "\n" + paymentUrl;
         }
 
 
