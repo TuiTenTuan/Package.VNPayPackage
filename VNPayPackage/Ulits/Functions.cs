@@ -60,7 +60,7 @@ namespace VNPayPackage.Ulits
 
         public static string[] SplitVietNamName(string name)
         {
-            string[] result =  new string[2];
+            string[] result = new string[2];
 
             int indexLastSpace = name.LastIndexOf(' ');
 
@@ -76,6 +76,26 @@ namespace VNPayPackage.Ulits
             }
 
             return result;
+        }
+
+        public static string CovertToUrlParameter(SortedList<string, string> dataInput)
+        {
+            StringBuilder result = new StringBuilder();
+
+            foreach (KeyValuePair<string, string> item in dataInput)
+            {
+                if (string.IsNullOrEmpty(item.Value))
+                {
+                    result.Append(WebUtility.UrlEncode(item.Key)).Append("=").Append(WebUtility.UrlEncode(item.Value)).Append("&");
+                }
+            }
+
+            if (result.Length > 0)
+            {
+                result = result.Remove(result.Length - 1, 1);
+            }
+
+            return result.ToString();
         }
     }
 }

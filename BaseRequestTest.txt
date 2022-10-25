@@ -1,0 +1,15 @@
+https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?
+vnp_Amount=1000000
+&vnp_Command=pay
+&vnp_CreateDate=20221025092857
+&vnp_CurrCode=VND
+&vnp_ExpireDate=20221025094357
+&vnp_IpAddr=117.13.15.128
+&vnp_Locale=vn
+&vnp_OrderInfo=Test+Thanh+Toan+10k
+&vnp_OrderType=Other
+&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A5123%2Freturn
+&vnp_TmnCode=20OSMDB3
+&vnp_TxnRef=638022869373137314
+&vnp_Version=2.1.0
+&vnp_SecureHash=154884e28bfb4a77c9c2b2f4e100a898f1067fd03942ed15c6a592dc13c416a5f061f352268c408037af0bc07754c01422bc6db87d3017f5c44b466e05b0ac6f

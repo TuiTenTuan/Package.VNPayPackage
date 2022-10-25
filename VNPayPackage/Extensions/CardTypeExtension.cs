@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Pipes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VNPayPackage.Enums;
+﻿using VNPayPackage.Enums;
 
 namespace VNPayPackage.Extensions
 {

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Reflection.Metadata.Ecma335;
+﻿using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using VNPayPackage.Enums;
 using VNPayPackage.Extensions;
 using VNPayPackage.Ulits;
@@ -91,20 +86,20 @@ namespace VNPayPackage.Models
         {
             SortedList<string, string> result = new SortedList<string, string>(new VnPayCompare());
 
-            result.Add("vnp_Version", WebUtility.UrlEncode(Version));
-            result.Add("vnp_Command", WebUtility.UrlEncode(Command.GetValue()));
-            result.Add("vnp_TmnCode", WebUtility.UrlEncode(TmnCode));
-            result.Add("vnp_Amount", WebUtility.UrlEncode(Math.Round(Amount * 100, 0, MidpointRounding.ToEven).ToString()));
-            result.Add("vnp_BankCode", WebUtility.UrlEncode(BankCode));
-            result.Add("vnp_CreateDate", WebUtility.UrlEncode(CreateDate.ToString("yyyyMMddHHmmss")));
-            result.Add("vnp_CurrCode", WebUtility.UrlEncode(Currency.GetValue()));
-            result.Add("vnp_IpAddr", WebUtility.UrlEncode(IpGuest.MapToIPv4().ToString()));
-            result.Add("vnp_Locale", WebUtility.UrlEncode(Language.GetValue()));
-            result.Add("vnp_OrderInfo", WebUtility.UrlEncode(OrderInfo));
-            result.Add("vnp_OrderType", WebUtility.UrlEncode(OrderType.ToString()));
-            result.Add("vnp_ReturnUrl", WebUtility.UrlEncode(ReturnUrl));
-            result.Add("vnp_TxnRef", WebUtility.UrlEncode(TxnRef));
-            result.Add("vnp_ExpireDate", WebUtility.UrlEncode(ExpireDate.ToString("yyyyMMddHHmmss")));
+            result.Add("vnp_Version", Version);
+            result.Add("vnp_Command", Command.GetValue());
+            result.Add("vnp_TmnCode", TmnCode);
+            result.Add("vnp_Amount", Math.Round(Amount * 100, 0, MidpointRounding.ToEven).ToString());
+            result.Add("vnp_BankCode", BankCode);
+            result.Add("vnp_CreateDate", CreateDate.ToString("yyyyMMddHHmmss"));
+            result.Add("vnp_CurrCode", Currency.GetValue());
+            result.Add("vnp_IpAddr", IpGuest.MapToIPv4().ToString());
+            result.Add("vnp_Locale", Language.GetValue());
+            result.Add("vnp_OrderInfo", OrderInfo);
+            result.Add("vnp_OrderType", OrderType.ToString());
+            result.Add("vnp_ReturnUrl", ReturnUrl);
+            result.Add("vnp_TxnRef", TxnRef);
+            result.Add("vnp_ExpireDate", ExpireDate.ToString("yyyyMMddHHmmss"));
 
             return result;
         }
@@ -123,22 +118,7 @@ namespace VNPayPackage.Models
                 dataConvert = Bill.ConvertToSortedList(dataConvert);
             }
 
-            StringBuilder result = new StringBuilder();
-
-            foreach (KeyValuePair<string, string> item in dataConvert)
-            {
-                if (!String.IsNullOrEmpty(item.Value))
-                {
-                    result.Append(item.Key).Append("=").Append(item.Value).Append("&");
-                }
-            }
-
-            if (result.Length > 0)
-            {
-                result = result.Remove(result.Length - 1, 1);
-            }
-
-            return result.ToString();
+            return Functions.CovertToUrlParameter(dataConvert);
         }
 
         public string CreatePayUrl(string baseUrl, string key)

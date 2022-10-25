@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 using VNPayPackage.Enums;
 using VNPayPackage.Extensions;
 using VNPayPackage.Ulits;
@@ -44,28 +38,33 @@ namespace VNPayPackage.Models
         {
             SortedList<string, string> result = new SortedList<string, string>(new VnPayCompare());
 
-            result.Add("vnp_Inv_Customer", WebUtility.UrlEncode(CustomerName));
-            result.Add("vnp_Inv_Phone", WebUtility.UrlEncode(Phone));
-            result.Add("vnp_Inv_Email", WebUtility.UrlEncode(Email));
-            result.Add("vnp_Inv_Address", WebUtility.UrlEncode(Address));
-            result.Add("vnp_Inv_Company", WebUtility.UrlEncode(CompanyName));
-            result.Add("vnp_Inv_Taxcode", WebUtility.UrlEncode(TaxCode));
-            result.Add("vnp_Inv_Type", WebUtility.UrlEncode(TaxType.GetValue()));
+            result.Add("vnp_Inv_Customer", CustomerName);
+            result.Add("vnp_Inv_Phone", Phone);
+            result.Add("vnp_Inv_Email", Email);
+            result.Add("vnp_Inv_Address", Address);
+            result.Add("vnp_Inv_Company", CompanyName);
+            result.Add("vnp_Inv_Taxcode", TaxCode);
+            result.Add("vnp_Inv_Type", TaxType.GetValue());
 
             return result;
         }
 
         public SortedList<string, string> ConvertToSortedList(SortedList<string, string> arrayInput)
         {
-            arrayInput.Add("vnp_Inv_Customer", WebUtility.UrlEncode(CustomerName));
-            arrayInput.Add("vnp_Inv_Phone", WebUtility.UrlEncode(Phone));
-            arrayInput.Add("vnp_Inv_Email", WebUtility.UrlEncode(Email));
-            arrayInput.Add("vnp_Inv_Address", WebUtility.UrlEncode(Address));
-            arrayInput.Add("vnp_Inv_Company", WebUtility.UrlEncode(CompanyName));
-            arrayInput.Add("vnp_Inv_Taxcode", WebUtility.UrlEncode(TaxCode));
-            arrayInput.Add("vnp_Inv_Type", WebUtility.UrlEncode(TaxType.GetValue()));
+            arrayInput.Add("vnp_Inv_Customer", CustomerName);
+            arrayInput.Add("vnp_Inv_Phone", Phone);
+            arrayInput.Add("vnp_Inv_Email", Email);
+            arrayInput.Add("vnp_Inv_Address", Address);
+            arrayInput.Add("vnp_Inv_Company", CompanyName);
+            arrayInput.Add("vnp_Inv_Taxcode", TaxCode);
+            arrayInput.Add("vnp_Inv_Type", TaxType.GetValue());
 
             return arrayInput;
+        }
+
+        public string ConvertToUrlParameter()
+        {
+            return Functions.CovertToUrlParameter(ConvertToSortedList());
         }
     }
 }

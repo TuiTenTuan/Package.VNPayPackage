@@ -1,0 +1,13 @@
+http://localhost:5123/return?
+vnp_Amount=1000000
+&vnp_BankCode=NCB
+&vnp_BankTranNo=VNP13862543
+&vnp_CardType=ATM
+&vnp_OrderInfo=Test+Thanh+Toan+10k
+&vnp_PayDate=20221025093012
+&vnp_ResponseCode=00
+&vnp_TmnCode=20OSMDB3
+&vnp_TransactionNo=13862543
+&vnp_TransactionStatus=00
+&vnp_TxnRef=638022869373137314
+&vnp_SecureHash=009c79fba24bf850ba81604420ceb8ed6a9ec50fe748ea559e1b4055d522b93c2fefde777afbf11a15e8061b78bca0d9edd340cd7377fce6ee74ba118ffdbb8e

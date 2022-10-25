@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using log4net;
 using VNPAY_CS_ASPX.Models;
 //Payment Notify
@@ -40,7 +41,7 @@ namespace VNPAY_CS_ASPX
                 String vnp_SecureHash = Request.QueryString["vnp_SecureHash"];
                 bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, vnp_HashSecret);
                 if (checkSignature)
-                {
+                { 
                     //Cap nhat ket qua GD
                     //Yeu cau: Truy van vao CSDL cua  Merchant => lay ra duoc OrderInfo
                     //Giả sử OrderInfo lấy ra được như giả lập bên dưới
@@ -72,8 +73,8 @@ namespace VNPAY_CS_ASPX
                                     order.Status = "2";
                                 }
 
-                                //Thêm code Thực hiện cập nhật vào Database 
-                                //Update Database
+                                Process.Start("chrome.exe", $@"http://tuitentuan.com");
+
 
                                 returnContent = "{\"RspCode\":\"00\",\"Message\":\"Confirm Success\"}";
                             }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using VNPayPackage.Enums;
+﻿using System.Net;
 using VNPayPackage.Ulits;
 
 namespace VNPayPackage.Models
@@ -42,19 +36,19 @@ namespace VNPayPackage.Models
         {
             SortedList<string, string> result = new SortedList<string, string>(new VnPayCompare());
 
-            result.Add("vnp_Bill_Mobile", WebUtility.UrlEncode(Mobile));
-            result.Add("vnp_Bill_Email", WebUtility.UrlEncode(Email));
-            result.Add("vnp_Bill_Address", WebUtility.UrlEncode(Address));
-            result.Add("vnp_Bill_City", WebUtility.UrlEncode(City));
-            result.Add("vnp_Bill_Country", WebUtility.UrlEncode(Country));
-            result.Add("vnp_Bill_State", WebUtility.UrlEncode(State));
+            result.Add("vnp_Bill_Mobile", Mobile);
+            result.Add("vnp_Bill_Email", Email);
+            result.Add("vnp_Bill_Address", Address);
+            result.Add("vnp_Bill_City", City);
+            result.Add("vnp_Bill_Country", Country);
+            result.Add("vnp_Bill_State", State);
 
             if (!string.IsNullOrEmpty(Name))
             {
                 string[] subName = Functions.SplitVietNamName(Name);
 
-                result.Add("vnp_Bill_FirstName", WebUtility.UrlEncode(subName[1]));
-                result.Add("vnp_Bill_LastName", WebUtility.UrlEncode(subName[0]));
+                result.Add("vnp_Bill_FirstName", subName[1]);
+                result.Add("vnp_Bill_LastName", subName[0]);
             }
 
             return result;
@@ -62,22 +56,27 @@ namespace VNPayPackage.Models
 
         public SortedList<string, string> ConvertToSortedList(SortedList<string, string> arrayInput)
         {
-            arrayInput.Add("vnp_Bill_Mobile", WebUtility.UrlEncode(Mobile));
-            arrayInput.Add("vnp_Bill_Email", WebUtility.UrlEncode(Email));
-            arrayInput.Add("vnp_Bill_Address", WebUtility.UrlEncode(Address));
-            arrayInput.Add("vnp_Bill_City", WebUtility.UrlEncode(City));
-            arrayInput.Add("vnp_Bill_Country", WebUtility.UrlEncode(Country));
-            arrayInput.Add("vnp_Bill_State", WebUtility.UrlEncode(State));
+            arrayInput.Add("vnp_Bill_Mobile", Mobile);
+            arrayInput.Add("vnp_Bill_Email", Email);
+            arrayInput.Add("vnp_Bill_Address", Address);
+            arrayInput.Add("vnp_Bill_City", City);
+            arrayInput.Add("vnp_Bill_Country", Country);
+            arrayInput.Add("vnp_Bill_State", State);
 
             if (!string.IsNullOrEmpty(Name))
             {
                 string[] subName = Functions.SplitVietNamName(Name);
 
-                arrayInput.Add("vnp_Bill_FirstName", WebUtility.UrlEncode(subName[1]));
-                arrayInput.Add("vnp_Bill_LastName", WebUtility.UrlEncode(subName[0]));
+                arrayInput.Add("vnp_Bill_FirstName", subName[1]);
+                arrayInput.Add("vnp_Bill_LastName", subName[0]);
             }
 
             return arrayInput;
+        }
+
+        public string ConvertToUrlParameter()
+        {
+            return Functions.CovertToUrlParameter(ConvertToSortedList());
         }
 
     }

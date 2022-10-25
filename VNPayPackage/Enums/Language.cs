@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VNPayPackage.Enums
+﻿namespace VNPayPackage.Enums
 {
-   public enum Language
+    public enum Language
     {
         Vietnamese,
         English
