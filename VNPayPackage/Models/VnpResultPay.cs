@@ -4,7 +4,7 @@ using VNPayPackage.Ulits;
 
 namespace VNPayPackage.Models
 {
-    public class VnpResult
+    public class VnpResultPay
     {
         public string TmnCode { get; set; }
 
@@ -24,7 +24,7 @@ namespace VNPayPackage.Models
 
         public ResponseCode ResponseCode { get; set; }
 
-        public ResponseCode TransactionStatus { get; set; }
+        public TransactionStatusCode TransactionStatus { get; set; }
 
         public string TxnRef { get; set; }
 
@@ -37,7 +37,7 @@ namespace VNPayPackage.Models
         }
 
 
-        public VnpResult(string tmnCode, decimal amount, string bankCode, string bankTranNo, CardType cardType, DateTime payDate, string orderInfo, long transactionNo, ResponseCode responseCode, ResponseCode transactionStatus, string txnRef, HashType secureHashType)
+        public VnpResultPay(string tmnCode, decimal amount, string bankCode, string bankTranNo, CardType cardType, DateTime payDate, string orderInfo, long transactionNo, ResponseCode responseCode, TransactionStatusCode transactionStatus, string txnRef, HashType secureHashType)
         {
             TmnCode = tmnCode;
             Amount = amount;
@@ -53,7 +53,7 @@ namespace VNPayPackage.Models
             SecureHashType = secureHashType;
         }
 
-        public VnpResult(string query, string keyCheckSum)
+        public VnpResultPay(string query, string keyCheckSum)
         {
             SecureHashType = HashType.HmacSHA512;
 
@@ -104,7 +104,7 @@ namespace VNPayPackage.Models
                     OrderInfo = dataInput["vnp_OrderInfo"];
                     TransactionNo = long.Parse(dataInput["vnp_TransactionNo"]);
                     ResponseCode = (ResponseCode)int.Parse(dataInput["vnp_ResponseCode"]);
-                    TransactionStatus = (ResponseCode)int.Parse(dataInput["vnp_ResponseCode"]);
+                    TransactionStatus = (TransactionStatusCode)int.Parse(dataInput["vnp_ResponseCode"]);
                     TxnRef = dataInput["vnp_TxnRef"];
                 }
                 catch { }
@@ -115,6 +115,6 @@ namespace VNPayPackage.Models
             }
         }
 
-        public VnpResult() { }
+        public VnpResultPay() { }
     }
 }

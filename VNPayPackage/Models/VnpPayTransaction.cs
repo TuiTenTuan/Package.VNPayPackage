@@ -6,7 +6,7 @@ using VNPayPackage.Ulits;
 
 namespace VNPayPackage.Models
 {
-    public class VnpPay
+    public class VnpPayTransaction
     {
         public string Version { get; set; }
 
@@ -41,7 +41,7 @@ namespace VNPayPackage.Models
         public VnpBill Bill { get; set; }
 
 
-        public VnpPay(string version, VNPCommand command, string tmnCode, decimal amount, string bankCode, DateTime createDate, DateTime expireDate, Currency currency, IPAddress ipGuest, Language language, string orderInfo, OrderType orderType, string returnUrl, string txnRef, VnpInvoice invoice, VnpBill bill)
+        public VnpPayTransaction(string version, VNPCommand command, string tmnCode, decimal amount, string bankCode, DateTime createDate, DateTime expireDate, Currency currency, IPAddress ipGuest, Language language, string orderInfo, OrderType orderType, string returnUrl, string txnRef, VnpInvoice invoice, VnpBill bill)
         {
             Version = version;
             Command = command;
@@ -61,17 +61,17 @@ namespace VNPayPackage.Models
             Bill = bill;
         }
 
-        public VnpPay(VNPCommand command, string tmnCode, decimal amount, string bankCode, DateTime createDate, DateTime expireDate, Currency currency, IPAddress ipGuest, Language language, string orderInfo, OrderType orderType, string returnUrl, string txnRef) : this("2.1.0", command, tmnCode, amount, bankCode, createDate, expireDate, currency, ipGuest, language, orderInfo, orderType, returnUrl, txnRef, null, null) { }
+        public VnpPayTransaction(VNPCommand command, string tmnCode, decimal amount, string bankCode, DateTime createDate, DateTime expireDate, Currency currency, IPAddress ipGuest, Language language, string orderInfo, OrderType orderType, string returnUrl, string txnRef) : this("2.1.0", command, tmnCode, amount, bankCode, createDate, expireDate, currency, ipGuest, language, orderInfo, orderType, returnUrl, txnRef, null, null) { }
 
-        public VnpPay(VNPCommand command, string tmnCode, decimal amount, DateTime createDate, DateTime expireDate, Currency currency, IPAddress ipGuest, Language language, string orderInfo, OrderType orderType, string returnUrl, string txnRef) : this(command, tmnCode, amount, "", createDate, expireDate, currency, ipGuest, language, orderInfo, orderType, returnUrl, txnRef) { }
+        public VnpPayTransaction(VNPCommand command, string tmnCode, decimal amount, DateTime createDate, DateTime expireDate, Currency currency, IPAddress ipGuest, Language language, string orderInfo, OrderType orderType, string returnUrl, string txnRef) : this(command, tmnCode, amount, "", createDate, expireDate, currency, ipGuest, language, orderInfo, orderType, returnUrl, txnRef) { }
 
-        public VnpPay(VNPCommand command, string tmnCode, decimal amount, DateTime createDate, Currency currency, IPAddress ipGuest, Language language, string orderInfo, OrderType orderType, string returnUrl, string txnRef) : this(command, tmnCode, amount, "", createDate, createDate.AddMinutes(15), currency, ipGuest, language, orderInfo, orderType, returnUrl, txnRef) { }
+        public VnpPayTransaction(VNPCommand command, string tmnCode, decimal amount, DateTime createDate, Currency currency, IPAddress ipGuest, Language language, string orderInfo, OrderType orderType, string returnUrl, string txnRef) : this(command, tmnCode, amount, "", createDate, createDate.AddMinutes(15), currency, ipGuest, language, orderInfo, orderType, returnUrl, txnRef) { }
 
-        public VnpPay(VNPCommand command, string tmnCode, decimal amount, Currency currency, IPAddress ipGuest, Language language, string orderInfo, OrderType orderType, string returnUrl, string txnRef) : this(command, tmnCode, amount, DateTime.Now, currency, ipGuest, language, orderInfo, orderType, returnUrl, txnRef) { }
+        public VnpPayTransaction(VNPCommand command, string tmnCode, decimal amount, Currency currency, IPAddress ipGuest, Language language, string orderInfo, OrderType orderType, string returnUrl, string txnRef) : this(command, tmnCode, amount, DateTime.Now, currency, ipGuest, language, orderInfo, orderType, returnUrl, txnRef) { }
 
-        public VnpPay(VNPCommand command, string tmnCode, decimal amount, Currency currency, IPAddress ipGuest, Language language, string orderInfo, string returnUrl, string txnRef) : this(command, tmnCode, amount, DateTime.Now, currency, ipGuest, language, orderInfo, OrderType.Other, returnUrl, txnRef) { }
+        public VnpPayTransaction(VNPCommand command, string tmnCode, decimal amount, Currency currency, IPAddress ipGuest, Language language, string orderInfo, string returnUrl, string txnRef) : this(command, tmnCode, amount, DateTime.Now, currency, ipGuest, language, orderInfo, OrderType.Other, returnUrl, txnRef) { }
 
-        public VnpPay(VNPCommand command, string tmnCode, decimal amount, IPAddress ipGuest, string orderInfo, string returnUrl, string txnRef) : this(command, tmnCode, amount, DateTime.Now, Currency.VND, ipGuest, Language.Vietnamese, orderInfo, OrderType.Other, returnUrl, txnRef) { }
+        public VnpPayTransaction(VNPCommand command, string tmnCode, decimal amount, IPAddress ipGuest, string orderInfo, string returnUrl, string txnRef) : this(command, tmnCode, amount, DateTime.Now, Currency.VND, ipGuest, Language.Vietnamese, orderInfo, OrderType.Other, returnUrl, txnRef) { }
 
         public string GetCheckSum(string key, string dataInput)
         {

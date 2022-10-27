@@ -13,7 +13,7 @@ namespace VNPayPackage.Extensions
                 case VNPCommand.Refund:
                     return "refund";
                 case VNPCommand.CheckPayment:
-                    return "querydr"
+                    return "querydr";
                 default:
                     return "pay";
             }

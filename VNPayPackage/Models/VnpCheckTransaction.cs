@@ -65,7 +65,7 @@ namespace VNPayPackage.Models
 
         public string CheckSum(string key)
         {
-            string dataCheckSum = $@"{WebUtility.UrlEncode(ID)}|{WebUtility.UrlEncode(Version)}|{WebUtility.UrlEncode(Command.GetValue())}|{WebUtility.UrlEncode(TmnCode)}|{WebUtility.UrlEncode(TxnRef)}|{WebUtility.UrlEncode(TransactionDate.ToString("yyyyMMddHHmmss"))}|{WebUtility.UrlEncode(CreateDate.ToString("yyyyMMddHHmmss"))}|{WebUtility.UrlEncode(IpServer.MapToIPv4().ToString())}|{WebUtility.UrlEncode(OrderInfo)}";
+            string dataCheckSum = $@"{ID}|{Version}|{Command.GetValue()}|{TmnCode}|{TxnRef}|{TransactionDate.ToString("yyyyMMddHHmmss")}|{CreateDate.ToString("yyyyMMddHHmmss")}|{IpServer.MapToIPv4().ToString()}|{OrderInfo}";
 
             return Functions.HmacSHA512(key, dataCheckSum);
         }
@@ -75,17 +75,22 @@ namespace VNPayPackage.Models
             return Functions.CovertToUrlParameter(ConvertToSortedList());
         }
 
-        public string CreateUrl(string baseUrl, string keyCheckSum)
+        public object ConvertToObjectString()
         {
-            StringBuilder result = new StringBuilder();
-
-            string parameter = ConvertToUrlParameter();
-
-            SecureHash = CheckSum(keyCheckSum);
-
-            result.Append("?").Append(parameter).Append("&vnp_SecureHash=").Append(SecureHash);
-
-            return result.ToString();
+            return new
+            {
+                vnp_RequestId = ID,
+                vnp_Version = Version,
+                vnp_Command = Command.GetValue(),
+                vnp_TmnCode = TmnCode,
+                vnp_TxnRef = TxnRef,
+                vnp_TransactionDate = TransactionDate.ToString("yyyyMMddHHmmss"),
+                vnp_CreateDate = CreateDate.ToString("yyyyMMddHHmmss"),
+                vnp_OrderInfo = OrderInfo,
+                vnp_TransactionNo = TransactionNo,
+                vnp_IpAddr = IpServer.MapToIPv4().ToString(),
+                vnp_SecureHash = SecureHash
+            };
         }
     }
 }

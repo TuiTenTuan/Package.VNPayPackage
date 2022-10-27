@@ -1,13 +1,16 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System.Net;
+using VNPayPackage.Models;
+using VNPayPackage.Ulits;
 
 Console.WriteLine("Hello, World!");
 string tmmCode = "20OSMDB3";
 string hashKey = "ZSWAMVCUPIENXWPVVVDTMMRUOCIOKUNG";
 string baseURL = @"https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
 string baseURLApi = @"https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
-IPAddress iP = new IPAddress(new byte[] { 117, 13, 15, 128 });
+IPAddress iP = new IPAddress(new byte[] { 123, 21, 236, 206 });
 
 //VnpPay p = new VnpPay(VNPCommand.Pay, tmmCode, 10000, iP, "Test Thanh Toan 10k", "http://localhost:5123/return", DateTime.Now.Ticks.ToString());
 
@@ -15,36 +18,29 @@ IPAddress iP = new IPAddress(new byte[] { 117, 13, 15, 128 });
 
 ////Process.Start("chrome.exe", $@"{url}");
 
-//DateTime date = DateTime.Now;
 
-//string dataCheck = $@"{date.Ticks}|2.1.0|querydr|{tmmCode}|638022869373137314|20221025092857|{date.ToString("yyyyMMddHHmmss")}|123.21.236.206|Test Thanh Toan 10k";
 
-//object querydr = new 
-//{
-//    vnp_RequestId = date.Ticks,
-//    vnp_Version = "2.1.0",
-//    vnp_Command = "querydr",
-//    vnp_TmnCode = tmmCode,
-//    vnp_TxnRef = 638022869373137314,
-//    vnp_OrderInfo = "Test Thanh Toan 10k",
-//    vnp_TransactionDate = 20221025092857,
-//    vnp_CreateDate = date.ToString("yyyyMMddHHmmss"),
-//    vnp_IpAddr = "123.21.236.206",
-//    vnp_SecureHash = Functions.HmacSHA512(hashKey, dataCheck)
-//};
+VnpCheckTransaction checkTransaction = new VnpCheckTransaction(tmmCode, "638022869373137314", "Test Thanh Toan 10k", 13862543, DateTime.ParseExact("20221025092857", "yyyyMMddHHmmss", System.Globalization.CultureInfo.InvariantCulture), iP);
 
-//string jsonConvert = JsonConvert.SerializeObject(querydr);
+checkTransaction.SecureHash = checkTransaction.CheckSum(hashKey);
 
-//HttpClient httpClient = new HttpClient();
+string jsonConvert = JsonConvert.SerializeObject(checkTransaction.ConvertToObjectString());
 
-//StringContent content = new StringContent(jsonConvert, Encoding.UTF8, "Application/json");
+StringContent content = new StringContent(jsonConvert);
 
-//var result = httpClient.PostAsync(baseURLApi, content).Result;
+HttpClient client = new HttpClient();
 
-//string resultContent = result.Content.ReadAsStringAsync().Result;
+var result = client.PostAsync(baseURLApi, content).Result;
 
-string input = @"http://localhost:5123/return?vnp_Amount=1000000&vnp_BankCode=NCB&vnp_BankTranNo=VNP13862543&vnp_CardType=ATM&vnp_OrderInfo=Test+Thanh+Toan+10k&vnp_PayDate=20221025093012&vnp_ResponseCode=00&vnp_TmnCode=20OSMDB3&vnp_TransactionNo=13862543&vnp_TransactionStatus=00&vnp_TxnRef=638022869373137314&vnp_SecureHash=009c79fba24bf850ba81604420ceb8ed6a9ec50fe748ea559e1b4055d522b93c2fefde777afbf11a15e8061b78bca0d9edd340cd7377fce6ee74ba118ffdbb8e";
+string contentResult = result.Content.ReadAsStringAsync().Result;
 
-QueryString query = QueryString.FromUriComponent(new Uri(input));
+contentResult = contentResult.Replace("{", "").Replace("}", "").Replace("\"", "");
+
+var tempResultSplit = contentResult.Split(",");
+
+string checkHash = "486ba7e84d9246de82248122e95cdc6c|querydr|00|QueryDR Success|20OSMDB3|638022869373137314|1000000|NCB|20221025093012|13862543|01|00|Test Thanh Toan 10k||";
+
+string hashcheck = Functions.HmacSHA512(hashKey, checkHash);
+
 
 Console.WriteLine("");
